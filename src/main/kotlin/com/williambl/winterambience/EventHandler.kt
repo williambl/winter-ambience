@@ -27,7 +27,7 @@ object EventHandler {
                         val pos = world.getHeight(Heightmap.Type.MOTION_BLOCKING, it.pos.asBlockPos().add(world.rand.nextInt(16), 0, world.rand.nextInt(16)))
                         if (world.getBiome(pos).precipitation == Biome.RainType.SNOW && world.isAreaLoaded(pos, 1)) {
                             val currentState = world.getBlockState(pos)
-                            if (currentState.block == Blocks.SNOW) {
+                            if (currentState.block == Blocks.SNOW && world.getBlockState(pos.down()) != Blocks.SNOW_BLOCK) {
                                 if (currentState.get(SnowBlock.LAYERS) < 8)
                                     world.setBlockState(pos, currentState.with(SnowBlock.LAYERS, currentState.get(SnowBlock.LAYERS) + 1))
                                 else

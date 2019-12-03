@@ -1,4 +1,4 @@
-package com.williambl.winterambience
+package com.williambl.winterambience.block
 
 import net.minecraft.block.BlockState
 import net.minecraft.block.SnowBlock

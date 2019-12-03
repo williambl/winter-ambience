@@ -1,5 +1,6 @@
 package com.williambl.winterambience
 
+import com.williambl.winterambience.block.SoftSnowBlock
 import net.alexwells.kottle.KotlinEventBusSubscriber
 import net.minecraft.block.Block
 import net.minecraft.block.SnowBlock

@@ -7,9 +7,11 @@ import net.minecraft.util.math.BlockPos
 import net.minecraft.util.math.shapes.ISelectionContext
 import net.minecraft.util.math.shapes.VoxelShape
 import net.minecraft.world.IBlockReader
+import net.minecraft.world.IEnviromentBlockReader
 
-class BaubleBlock : Block(Properties.create(Material.IRON)) {
+class BaubleBlock(properties: Properties = Properties.create(Material.IRON)) : Block(properties) {
     override fun getShape(p_220053_1_: BlockState, p_220053_2_: IBlockReader, p_220053_3_: BlockPos, p_220053_4_: ISelectionContext): VoxelShape {
         return makeCuboidShape(6.0, 12.0, 6.0, 10.0, 16.0, 10.0)
     }
+
 }

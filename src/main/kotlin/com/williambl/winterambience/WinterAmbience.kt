@@ -39,6 +39,7 @@ object WinterAmbience {
     lateinit var ironBaubleBlock: BaubleBlock
     lateinit var lapisBaubleBlock: BaubleBlock
     lateinit var redstoneBaubleBlock: BaubleBlock
+    lateinit var glowstoneBaubleBlock: BaubleBlock
 
     @SubscribeEvent
     fun setup(event: FMLCommonSetupEvent) {
@@ -62,6 +63,7 @@ object WinterAmbience {
         ironBaubleBlock = BaubleBlock()
         lapisBaubleBlock = BaubleBlock()
         redstoneBaubleBlock = BaubleBlock()
+        glowstoneBaubleBlock = BaubleBlock(Block.Properties.create(Material.GLASS).lightValue(12))
 
         event.registry.registerAll(
                 softSnowBlock.setRegistryName("minecraft", "snow"),
@@ -70,7 +72,8 @@ object WinterAmbience {
                 goldBaubleBlock.setRegistryName("gold_bauble"),
                 ironBaubleBlock.setRegistryName("iron_bauble"),
                 lapisBaubleBlock.setRegistryName("lapis_bauble"),
-                redstoneBaubleBlock.setRegistryName("redstone_bauble")
+                redstoneBaubleBlock.setRegistryName("redstone_bauble"),
+                glowstoneBaubleBlock.setRegistryName("glowstone_bauble")
         )
     }
 
@@ -83,7 +86,8 @@ object WinterAmbience {
                 BlockItem(goldBaubleBlock, Item.Properties().group(ItemGroup.DECORATIONS)).setRegistryName("gold_bauble"),
                 BlockItem(ironBaubleBlock, Item.Properties().group(ItemGroup.DECORATIONS)).setRegistryName("iron_bauble"),
                 BlockItem(lapisBaubleBlock, Item.Properties().group(ItemGroup.DECORATIONS)).setRegistryName("lapis_bauble"),
-                BlockItem(redstoneBaubleBlock, Item.Properties().group(ItemGroup.DECORATIONS)).setRegistryName("redstone_bauble")
+                BlockItem(redstoneBaubleBlock, Item.Properties().group(ItemGroup.DECORATIONS)).setRegistryName("redstone_bauble"),
+                BlockItem(glowstoneBaubleBlock, Item.Properties().group(ItemGroup.DECORATIONS)).setRegistryName("glowstone_bauble")
         )
     }
 

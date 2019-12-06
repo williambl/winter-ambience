@@ -33,7 +33,12 @@ object WinterAmbience {
     lateinit var getLoadedChunksIterable: Method
 
     lateinit var softSnowBlock: SoftSnowBlock
-    lateinit var baubleBlock: Block
+    lateinit var diamondBaubleBlock: BaubleBlock
+    lateinit var emeraldBaubleBlock: BaubleBlock
+    lateinit var goldBaubleBlock: BaubleBlock
+    lateinit var ironBaubleBlock: BaubleBlock
+    lateinit var lapisBaubleBlock: BaubleBlock
+    lateinit var redstoneBaubleBlock: BaubleBlock
 
     @SubscribeEvent
     fun setup(event: FMLCommonSetupEvent) {
@@ -51,14 +56,21 @@ object WinterAmbience {
     @SubscribeEvent
     fun registerBlocks(event: RegistryEvent.Register<Block>) {
         softSnowBlock = SoftSnowBlock(Block.Properties.create(Material.SNOW).tickRandomly().hardnessAndResistance(0.1f).sound(SoundType.SNOW))
-        baubleBlock = object : Block(Block.Properties.create(Material.IRON)) {
-            override fun getShape(p_220053_1_: BlockState, p_220053_2_: IBlockReader, p_220053_3_: BlockPos, p_220053_4_: ISelectionContext): VoxelShape {
-                return makeCuboidShape(6.0, 12.0, 6.0, 10.0, 16.0, 10.0)
-            }
-        }
+        diamondBaubleBlock = BaubleBlock()
+        emeraldBaubleBlock = BaubleBlock()
+        goldBaubleBlock = BaubleBlock()
+        ironBaubleBlock = BaubleBlock()
+        lapisBaubleBlock = BaubleBlock()
+        redstoneBaubleBlock = BaubleBlock()
+
         event.registry.registerAll(
                 softSnowBlock.setRegistryName("minecraft", "snow"),
-                baubleBlock.setRegistryName("bauble")
+                diamondBaubleBlock.setRegistryName("diamond_bauble"),
+                emeraldBaubleBlock.setRegistryName("emerald_bauble"),
+                goldBaubleBlock.setRegistryName("gold_bauble"),
+                ironBaubleBlock.setRegistryName("iron_bauble"),
+                lapisBaubleBlock.setRegistryName("lapis_bauble"),
+                redstoneBaubleBlock.setRegistryName("redstone_bauble")
         )
     }
 
@@ -66,7 +78,12 @@ object WinterAmbience {
     fun registerItems(event: RegistryEvent.Register<Item>) {
         event.registry.registerAll(
                 BlockItem(softSnowBlock, Item.Properties().group(ItemGroup.DECORATIONS)).setRegistryName("minecraft", "snow"),
-                BlockItem(baubleBlock, Item.Properties().group(ItemGroup.DECORATIONS)).setRegistryName("bauble")
+                BlockItem(diamondBaubleBlock, Item.Properties().group(ItemGroup.DECORATIONS)).setRegistryName("diamond_bauble"),
+                BlockItem(emeraldBaubleBlock, Item.Properties().group(ItemGroup.DECORATIONS)).setRegistryName("emerald_bauble"),
+                BlockItem(goldBaubleBlock, Item.Properties().group(ItemGroup.DECORATIONS)).setRegistryName("gold_bauble"),
+                BlockItem(ironBaubleBlock, Item.Properties().group(ItemGroup.DECORATIONS)).setRegistryName("iron_bauble"),
+                BlockItem(lapisBaubleBlock, Item.Properties().group(ItemGroup.DECORATIONS)).setRegistryName("lapis_bauble"),
+                BlockItem(redstoneBaubleBlock, Item.Properties().group(ItemGroup.DECORATIONS)).setRegistryName("redstone_bauble")
         )
     }
 

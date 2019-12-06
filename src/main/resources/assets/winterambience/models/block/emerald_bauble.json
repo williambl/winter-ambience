@@ -2,8 +2,8 @@
 	"credit": "Made with Blockbench",
 	"parent": "block/block",
 	"textures": {
-		"0": "winterambience:block/bauble_red",
-		"particle": "winterambience:block/bauble_red"
+		"0": "winterambience:block/emerald_bauble",
+		"particle": "winterambience:block/emerald_bauble"
 	},
 	"elements": [
 		{

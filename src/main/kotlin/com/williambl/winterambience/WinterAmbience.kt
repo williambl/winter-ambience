@@ -3,17 +3,11 @@ package com.williambl.winterambience
 import com.williambl.winterambience.block.SoftSnowBlock
 import net.alexwells.kottle.KotlinEventBusSubscriber
 import net.minecraft.block.Block
-import net.minecraft.block.BlockState
-import net.minecraft.block.SnowBlock
 import net.minecraft.block.SoundType
 import net.minecraft.block.material.Material
 import net.minecraft.item.BlockItem
 import net.minecraft.item.Item
 import net.minecraft.item.ItemGroup
-import net.minecraft.util.math.BlockPos
-import net.minecraft.util.math.shapes.ISelectionContext
-import net.minecraft.util.math.shapes.VoxelShape
-import net.minecraft.world.IBlockReader
 import net.minecraft.world.server.ChunkManager
 import net.minecraftforge.event.RegistryEvent
 import net.minecraftforge.eventbus.api.SubscribeEvent
@@ -62,7 +56,7 @@ object WinterAmbience {
         goldBaubleBlock = BaubleBlock()
         ironBaubleBlock = BaubleBlock()
         lapisBaubleBlock = BaubleBlock()
-        redstoneBaubleBlock = BaubleBlock()
+        redstoneBaubleBlock = BaubleBlock(isRedstone = true)
         glowstoneBaubleBlock = BaubleBlock(Block.Properties.create(Material.GLASS).lightValue(12))
 
         event.registry.registerAll(

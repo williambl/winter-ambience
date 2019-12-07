@@ -14,8 +14,12 @@ class BaubleBlock(properties: Properties = Properties.create(Material.IRON), val
         return makeCuboidShape(6.0, 12.0, 6.0, 10.0, 16.0, 10.0)
     }
 
-    override fun getStrongPower(state: BlockState, world: IBlockReader, pos: BlockPos, direction: Direction): Int {
-        return if (isRedstone) 15 else super.getStrongPower(state, world, pos, direction)
+    override fun getWeakPower(state: BlockState, world: IBlockReader, pos: BlockPos, direction: Direction): Int {
+        return if (isRedstone) 15 else super.getWeakPower(state, world, pos, direction)
+    }
+
+    override fun canProvidePower(state: BlockState): Boolean {
+        return isRedstone
     }
 
 }

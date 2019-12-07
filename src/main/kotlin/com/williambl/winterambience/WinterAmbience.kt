@@ -1,6 +1,8 @@
 package com.williambl.winterambience
 
+import com.williambl.winterambience.block.DecorativeLightControllerBlock
 import com.williambl.winterambience.block.SoftSnowBlock
+import com.williambl.winterambience.tileentity.DecorativeLightControllerTileEntity
 import net.alexwells.kottle.KotlinEventBusSubscriber
 import net.minecraft.block.Block
 import net.minecraft.block.SoundType
@@ -8,6 +10,7 @@ import net.minecraft.block.material.Material
 import net.minecraft.item.BlockItem
 import net.minecraft.item.Item
 import net.minecraft.item.ItemGroup
+import net.minecraft.tileentity.TileEntityType
 import net.minecraft.world.server.ChunkManager
 import net.minecraftforge.event.RegistryEvent
 import net.minecraftforge.eventbus.api.SubscribeEvent
@@ -17,6 +20,7 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent
 import net.minecraftforge.fml.event.server.FMLServerStartingEvent
 import java.lang.reflect.Method
+import java.util.function.Supplier
 
 @Mod(WinterAmbience.MODID)
 @KotlinEventBusSubscriber(modid = WinterAmbience.MODID, bus = KotlinEventBusSubscriber.Bus.MOD)
@@ -51,6 +55,9 @@ object WinterAmbience {
     lateinit var greenDecorativeLightBlock: DecorativeLightBlock
     lateinit var redDecorativeLightBlock: DecorativeLightBlock
     lateinit var blackDecorativeLightBlock: DecorativeLightBlock
+
+    lateinit var decorativeLightControllerBlock: DecorativeLightControllerBlock
+    lateinit var decorativeLightControllerTileEntityType: TileEntityType<DecorativeLightControllerTileEntity>
 
     @SubscribeEvent
     fun setup(event: FMLCommonSetupEvent) {
@@ -91,6 +98,7 @@ object WinterAmbience {
         greenDecorativeLightBlock = DecorativeLightBlock()
         redDecorativeLightBlock = DecorativeLightBlock()
         blackDecorativeLightBlock = DecorativeLightBlock()
+        decorativeLightControllerBlock = DecorativeLightControllerBlock()
 
         event.registry.registerAll(
                 softSnowBlock.setRegistryName("minecraft", "snow"),
@@ -116,7 +124,8 @@ object WinterAmbience {
                 brownDecorativeLightBlock.setRegistryName("brown_decorative_light"),
                 greenDecorativeLightBlock.setRegistryName("green_decorative_light"),
                 redDecorativeLightBlock.setRegistryName("red_decorative_light"),
-                blackDecorativeLightBlock.setRegistryName("black_decorative_light")
+                blackDecorativeLightBlock.setRegistryName("black_decorative_light"),
+                decorativeLightControllerBlock.setRegistryName("decorative_light_controller")
         )
     }
 
@@ -146,7 +155,16 @@ object WinterAmbience {
                 BlockItem(brownDecorativeLightBlock, Item.Properties().group(ItemGroup.DECORATIONS)).setRegistryName("brown_decorative_light"),
                 BlockItem(greenDecorativeLightBlock, Item.Properties().group(ItemGroup.DECORATIONS)).setRegistryName("green_decorative_light"),
                 BlockItem(redDecorativeLightBlock, Item.Properties().group(ItemGroup.DECORATIONS)).setRegistryName("red_decorative_light"),
-                BlockItem(blackDecorativeLightBlock, Item.Properties().group(ItemGroup.DECORATIONS)).setRegistryName("black_decorative_light")
+                BlockItem(blackDecorativeLightBlock, Item.Properties().group(ItemGroup.DECORATIONS)).setRegistryName("black_decorative_light"),
+                BlockItem(decorativeLightControllerBlock, Item.Properties().group(ItemGroup.REDSTONE)).setRegistryName("decorative_light_controller")
+        )
+    }
+
+    @SubscribeEvent
+    fun registerTileEntityTypes(event: RegistryEvent.Register<TileEntityType<*>>) {
+        decorativeLightControllerTileEntityType = TileEntityType.Builder.create(Supplier { DecorativeLightControllerTileEntity() }, decorativeLightControllerBlock).build(null)
+        event.registry.registerAll(
+                decorativeLightControllerTileEntityType.setRegistryName("decorative_light_controller")
         )
     }
 

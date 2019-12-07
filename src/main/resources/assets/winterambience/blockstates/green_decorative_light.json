@@ -1,6 +1,6 @@
 {
   "variants": {
     "powered=true": { "model": "winterambience:block/green_decorative_light_on" },
-    "powered=false": { "model": "winterambience:block/green_decorative_light_off" }
+    "powered=false": { "model": "winterambience:block/decorative_light_off" }
   }
 }

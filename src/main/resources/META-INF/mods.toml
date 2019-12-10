@@ -22,13 +22,14 @@ displayName="Winter Ambience" #mandatory
 # A URL for the "homepage" for this mod, displayed in the mod UI
 displayURL="https://curseforge.com/minecraft/mc-mods/winter-ambience" #optional
 # A file name (in the root of the mod JAR) containing a logo for display
-#logoFile="logo.png" #optional
+logoFile="logo.png" #optional
 # A text field displayed in the mod UI
 credits="" #optional
 # A text field displayed in the mod UI
 authors="Willbl3pic" #optional
 # The description text for the mod (multi line!) (#mandatory)
 description='''
+More winter-based things, mostly focussing around snow.
 '''
 # A dependency - use the . to indicate dependency for a specific modid. Dependencies are optional.
 [[dependencies.examplemod]] #optional

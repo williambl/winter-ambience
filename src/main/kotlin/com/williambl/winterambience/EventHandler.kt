@@ -17,22 +17,20 @@ object EventHandler {
 
     @SubscribeEvent
     fun pileSnow(event: TickEvent.WorldTickEvent) {
-        if (event.side == LogicalSide.CLIENT)
+        if (event.side == LogicalSide.CLIENT || !Config.doSnowPiling)
             return
-        else {
-            val world = event.world as ServerWorld
-            (WinterAmbience.getLoadedChunksIterable.invoke(world.chunkProvider.chunkManager) as Iterable<ChunkHolder>).forEach { chunkHolder ->
-                chunkHolder.func_219297_b().getNow(ChunkHolder.UNLOADED_CHUNK).left().ifPresent {
-                    if (world.dimension.canDoRainSnowIce(it) && world.isRaining && world.rand.nextInt(32) == 0) {
-                        val pos = world.getHeight(Heightmap.Type.MOTION_BLOCKING, it.pos.asBlockPos().add(world.rand.nextInt(16), 0, world.rand.nextInt(16)))
-                        if (world.getBiome(pos).precipitation == Biome.RainType.SNOW && world.isAreaLoaded(pos, 1)) {
-                            val currentState = world.getBlockState(pos)
-                            if (currentState.block == Blocks.SNOW && world.getBlockState(pos.down()) != Blocks.SNOW_BLOCK) {
-                                if (currentState.get(SnowBlock.LAYERS) < 8)
-                                    world.setBlockState(pos, currentState.with(SnowBlock.LAYERS, currentState.get(SnowBlock.LAYERS) + 1))
-                                else
-                                    world.setBlockState(pos, Blocks.SNOW_BLOCK.defaultState)
-                            }
+        val world = event.world as ServerWorld
+        (WinterAmbience.getLoadedChunksIterable.invoke(world.chunkProvider.chunkManager) as Iterable<ChunkHolder>).forEach { chunkHolder ->
+            chunkHolder.func_219297_b().getNow(ChunkHolder.UNLOADED_CHUNK).left().ifPresent {
+                if (world.dimension.canDoRainSnowIce(it) && world.isRaining && world.rand.nextInt(32) == 0) {
+                    val pos = world.getHeight(Heightmap.Type.MOTION_BLOCKING, it.pos.asBlockPos().add(world.rand.nextInt(16), 0, world.rand.nextInt(16)))
+                    if (world.getBiome(pos).precipitation == Biome.RainType.SNOW && world.isAreaLoaded(pos, 1)) {
+                        val currentState = world.getBlockState(pos)
+                        if (currentState.block == Blocks.SNOW && (world.getBlockState(pos.down()) != Blocks.SNOW_BLOCK || Config.snowPilesInfinitely)) {
+                            if (currentState.get(SnowBlock.LAYERS) < 8)
+                                world.setBlockState(pos, currentState.with(SnowBlock.LAYERS, currentState.get(SnowBlock.LAYERS) + 1))
+                            else
+                                world.setBlockState(pos, Blocks.SNOW_BLOCK.defaultState)
                         }
                     }
                 }

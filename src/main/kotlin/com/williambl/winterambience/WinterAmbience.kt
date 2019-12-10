@@ -17,6 +17,10 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent
 import net.minecraftforge.fml.event.server.FMLServerStartingEvent
 import java.lang.reflect.Method
+import net.minecraftforge.fml.config.ModConfig
+import net.minecraftforge.fml.ModLoadingContext
+
+
 
 @Mod(WinterAmbience.MODID)
 @KotlinEventBusSubscriber(modid = WinterAmbience.MODID, bus = KotlinEventBusSubscriber.Bus.MOD)
@@ -27,6 +31,10 @@ object WinterAmbience {
     lateinit var getLoadedChunksIterable: Method
 
     lateinit var softSnowBlock: SoftSnowBlock
+
+    init {
+        ModLoadingContext.get().registerConfig(ModConfig.Type.SERVER, Config.SERVER_SPEC)
+    }
 
     @SubscribeEvent
     fun setup(event: FMLCommonSetupEvent) {
@@ -55,6 +63,14 @@ object WinterAmbience {
         event.registry.registerAll(
                 BlockItem(softSnowBlock, Item.Properties().group(ItemGroup.DECORATIONS)).setRegistryName("minecraft", "snow")
         )
+    }
+
+    @SubscribeEvent
+    fun config(event: ModConfig.ModConfigEvent) {
+        if (event.config.spec == Config.SERVER_SPEC) {
+            Config.loadConfig(event.config.spec, event.config.fullPath)
+            Config.refreshServer()
+        }
     }
 
 }

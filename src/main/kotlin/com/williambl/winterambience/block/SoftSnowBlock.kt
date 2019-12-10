@@ -1,5 +1,6 @@
 package com.williambl.winterambience.block
 
+import com.williambl.winterambience.Config
 import net.minecraft.block.BlockState
 import net.minecraft.block.SnowBlock
 import net.minecraft.entity.Entity
@@ -24,7 +25,7 @@ class SoftSnowBlock(properties: Properties) : SnowBlock(properties) {
     }
 
     override fun tick(state: BlockState, world: World, pos: BlockPos, rand: Random) {
-        if (world.getLightFor(LightType.SKY, pos) == 15 && !world.isRaining) {
+        if (Config.doSnowMelting && world.getLightFor(LightType.SKY, pos) == 15 && !world.isRaining) {
             if (state.get(LAYERS) > 1)
                 world.setBlockState(pos, state.with(LAYERS, state.get(LAYERS) - 1))
         }
